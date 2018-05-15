@@ -8,8 +8,9 @@ from.filters import CityFilter
 
 
 def home(request):
-    url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=c570c535821c0558cceee4b7a9649e95'
-    print(request.POST)
+    url = 'http://api.openweathermap.org/' \
+          'data/2.5/weather?q={}&units=metric&' \
+          'appid=c570c535821c0558cceee4b7a9649e95'
     if request.POST:
         form = InputCityForm(request.POST)
         city = form.data['name']

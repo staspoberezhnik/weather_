@@ -18,11 +18,7 @@ class ExistCity(models.Model):
         ('Paris', 'Paris'),
     )
 
-    # name = models.CharField(max_length=30, choices=CITY_CHOICES, blank=True)
-    # temperature = models.FloatField(default=0)
-    # description = models.CharField(max_length=40,blank=True)
-    # icon = models.CharField(max_length=10,blank=True)
-    # date_created = models.DateTimeField(auto_now_add=True)
+    name = models.CharField(max_length=30, choices=CITY_CHOICES, blank=True)
 
     def __str__(self):
         return self.name
