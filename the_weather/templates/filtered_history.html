@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if filter %}
+  <form action='' method="get">
+      <h3>You can use filters</h3>
+    {{ filter.form.as_p }}
+    <button type="submit">Search</button>
+  </form>
+    {% endif %}
+
+
+
+        <a href='{% url "weather:home" %}'>go to home page</a>
+        <br>
+        <a href='{% url "weather:filtered_history" %}'>See All history</a>
+        <br>
+        {% for weather in weather %}
+        <img src="http://openweathermap.org/img/w/{{ weather.icon }}.png" width="50px" height="50px" alt="Image">
+        <p>
+        <span  class="title">{{ weather.name }}</span>
+        <br>
+        <span>{{ weather.temperature  }}°C</span>
+        <br>
+        <span>{{ weather.description }}</span>
+            <br>
+            {% load tz %}
+            {% localtime on %}
+        <span>{{ weather.date_created }} UTC</span>
+            {% endlocaltime %}
+        </p>
+        <hr>
+        {% endfor %}
+
+
+{% if weather.has_other_pages %}
+  <ul class="pagination">
+    {% if weather.has_previous %}
+      <li><a href="?page={{ weather.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in weather.paginator.page_range %}
+      {% if weather.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if weather.has_next %}
+      <li><a href="?page={{ weather.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
+
+
+
+{% endblock content %}

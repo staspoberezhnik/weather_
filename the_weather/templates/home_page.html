@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{%block greetings %}
+Want to know the weather?
+{% endblock greetings %}
+
+{% block content %}
+        {% if error %}
+        <h3> Incorrect City name. Try again!!</h3>
+        {% endif %}
+
+        {% if inputform %}
+        <form method="POST" enctype="multipart/form-data" action="">
+        {% csrf_token %}
+        {{ inputform.name }}
+        <input type="submit" class="btn" value="Find city" size="small">
+        </form>
+        {% endif %}
+
+        {% if selectform %}
+        <form method="POST" enctype="multipart/form-data" action="">
+        {% csrf_token %}
+        {{ selectform.name }}
+        <input type="submit" class="btn" value="Find city" size="small">
+        </form>
+        {% endif %}
+
+
+        {% if weather %}
+
+        <img src="http://openweathermap.org/img/w/{{ weather.icon }}.png" width="50px" height="50px" alt="Image">
+        <p>
+        <span  class="title">{{ weather.city }}</span>
+        <br>
+        <span>{{ weather.temperature  }}°C</span>
+        <br>
+        <span>{{ weather.description }}</span>
+        </p>
+        <hr>
+
+        {% endif %}
+        <a href='{% url "weather:filtered_history" %}'>See All history</a>
+{% endblock content%}

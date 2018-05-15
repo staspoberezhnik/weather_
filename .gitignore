@@ -1,0 +1,6 @@
+.idea
+*.pyc
+*~
+weather_forc
+db.sqlite3
+__pycache__
